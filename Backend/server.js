@@ -1,23 +1,42 @@
-const express = require("express");
-const db = require("./config/db");
-const morgan = require("morgan");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import morgan from "morgan";
+import User from "./models/User.js";
+import userRoutes from "./routes/user.js";
+import { userData } from "./data/index.js";
+
+/* CONFIGURATION */
+dotenv.config();
 const app = express();
-const dotenv = require("dotenv").config(".env");
-
 app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-db();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+app.use("/api/users", userRoutes);
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+  //   User.insertMany(userData)
+  //     .then(() => console.log("Data inserted"))
+  //     .catch((error) => console.error("Data insertion failed", error));
+  // })
+  // .catch((error) => console.log(`${error} did not connect`));
+  })
+  //.catch((error) => console.log(`${error} did not connect`));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-const port = process.env.port || 8000;
-
- app.listen(port, () => {
-  console.log(`App is listening at port ${port}`);
-});
-
+/* MONGOOSE SETUP */
+const PORT = process.env.PORT || 8000;
