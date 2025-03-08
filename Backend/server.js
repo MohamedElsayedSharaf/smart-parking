@@ -19,24 +19,18 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use(cors());
 app.use("/api/users", userRoutes);
 
-mongoose
-  .connect(process.env.DB_URI)
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+mongoose.connect(process.env.DB_URI).then(() => {
+  app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   //   User.insertMany(userData)
   //     .then(() => console.log("Data inserted"))
   //     .catch((error) => console.error("Data insertion failed", error));
   // })
   // .catch((error) => console.log(`${error} did not connect`));
-  })
-  //.catch((error) => console.log(`${error} did not connect`));
+});
+//.catch((error) => console.log(`${error} did not connect`));
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 8000;

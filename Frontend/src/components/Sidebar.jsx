@@ -57,7 +57,7 @@ const navItems = [
     icon: <Report />,
   },
   {
-    text: "Sales",
+    text: "Subscriptions",
     icon: null,
   },
   {
@@ -79,7 +79,6 @@ const navItems = [
 ];
 
 const Sidebar = ({
-  user,
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
@@ -124,7 +123,7 @@ const Sidebar = ({
                 style={{ color: theme.palette.secondary.main }}
               >
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography>CarPark</Typography>
+                  <Typography fontSize="2rem">CarPark</Typography>
                 </Box>
                 {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -211,8 +210,9 @@ const Sidebar = ({
                   Web developer
                 </Typography>
               </Box>
-              <SettingsOutlined 
-              sx={{color: theme.palette.secondary[300], fontSize: '25px'}}/>  
+              <SettingsOutlined
+                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+              />
             </div>
           </Box>
         </Drawer>
