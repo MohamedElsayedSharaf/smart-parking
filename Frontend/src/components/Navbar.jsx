@@ -83,7 +83,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  textTransform: "none",
+                   textTransform: "none",
                   gap: "1rem",
                 }}
               >
@@ -119,11 +119,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 anchorEl={anchor}
                 open={isOpen}
                 onClose={handleClose}
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                 sx={{}}
-                >
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
+              >
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
             </div>
           </div>
         </Toolbar>

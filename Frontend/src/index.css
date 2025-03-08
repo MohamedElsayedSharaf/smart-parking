@@ -7,3 +7,24 @@ html,body,#root, .app {
     width: 100%;
     font-family: 'Inter', sans-serif;
 }
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1e293b; /* Darker background */
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #4f46e5; /* Indigo accent */
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6366f1; /* Lighter shade on hover */
+  }
+  
