@@ -5,9 +5,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-import User from "./models/User.js";
 import userRoutes from "./routes/user.js";
-import { userData } from "./data/index.js";
+import authRoutes from "./routes/auth.js";
+// import User from "./models/User.js";
+// import { userData } from "./data/index.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -18,19 +19,21 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: "http://localhost:5000", // Allow requests from your AI service
+  })
+);
 
-app.use(cors());
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
-mongoose.connect(process.env.DB_URI).then(() => {
-  app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-  //   User.insertMany(userData)
-  //     .then(() => console.log("Data inserted"))
-  //     .catch((error) => console.error("Data insertion failed", error));
-  // })
-  // .catch((error) => console.log(`${error} did not connect`));
-});
-//.catch((error) => console.log(`${error} did not connect`));
-
-/* MONGOOSE SETUP */
 const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`🚀 Server is running on port: ${PORT}`));
+
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => {
+    console.log("✅ MongoDB connected successfully");
+  })
+  .catch((error) => console.error(`❌ MongoDB connection failed: ${error}`));
